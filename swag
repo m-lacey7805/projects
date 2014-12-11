@@ -1,1 +1,21 @@
+import turtle
+import random
+
+wn = turtle.Screen()
+stuff = turtle.Turtle()
+wn.bgcolor("black")
+
+stuff.color("green")
+
+
+for i in range(25):
+    for i in range(6):
+        stuff.forward(120)
+        stuff.right(80)
+        stuff.forward(100)
+        stuff.right(120)
+    stuff.right(36)
+
+
+wn.exitonclick()
 
