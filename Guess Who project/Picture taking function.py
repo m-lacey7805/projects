@@ -1,6 +1,8 @@
 import picamera,time,json
 
-def getCharProfile(name):
+def getCharProfile():
+    name = input("what is your name")
+
     try:
         with picamera.PiCamera() as camera:
             check = False
@@ -14,45 +16,41 @@ def getCharProfile(name):
                         check = True
     except ("picamera.exc.PiCameraMMALError:","picamera.exc.PiCameraError:"):
         print("your Camera is not detected, please insert PiCamera and resart")
-        filename = ""
-    return filename                
+        filename = name
+                
 
-    name = input("what is your name?")
-   
+       
     hair = ""
     while not (hair in ["black","brown","blonde","ginger"]):
         hair = input("what is your hair colour?")
 
     eye = ""
-    while not (hair in ["blue","brown","green"]):
+    while not (eye in ["blue","brown","green"]):
         eye = input("what is your eye colour?")    
 
     glasses = input("Do you have glasses?[yes/no]")
 
     facialhair = input("Do you have FacialHair?[yes/no]")
 
+    hat = input("Do you have a hat on?[yes/no]")
+    return [name,hair,eye,glasses,facialhair,hat] 
 
 def load():
     try:
-        with open ("peopleData.txt",mode="r")as file:
+        with open ("people.txt",mode="r")as file:
             people = json.read(file)
     except IOError: 
         print("it didnt work")
-        people= []
+        people=[]
     return people
 
-def store():
-    people = getCharProfile()
-    with open("people",mode='w') as file:
+def store(people):
+    person = getCharProfile()
+    people.append(person)
+    with open("people.txt",mode='w') as file:
         json.dump(people,file)
     return people
 
-
-
-
-
-
-
 people = load()
 print(people)
-people =store(people)
+people = store(people)
